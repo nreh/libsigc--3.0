@@ -84,13 +84,23 @@ install (FILES
 		DESTINATION 
 			"${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")
 
-enable_testing()
+# enable_testing()
 
 
 
 add_subdirectory (sigc++)
-add_subdirectory (examples)
-add_subdirectory (tests)
+
+IF(NOT "$ENV{DISABLE_SIGCPP_EXAMPLES}")
+    add_subdirectory (examples)
+ELSE()
+    message("NOTE sigc++ examples will NOT be built (DISABLE_SIGCPP_EXAMPLES = $ENV{DISABLE_SIGCPP_EXAMPLES})")
+ENDIF()
+
+IF(NOT "$ENV{DISABLE_SIGCPP_TESTS}")
+    add_subdirectory (tests)
+ELSE()
+    message("NOTE sigc++ tests will NOT be built (DISABLE_SIGCPP_TESTS = $ENV{DISABLE_SIGCPP_EXAMPLES})")
+ENDIF()
 
 
 set (PROJECT_CMAKE_NAME		"${PROJECT_NAME}-3")
